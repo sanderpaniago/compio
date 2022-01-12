@@ -1,0 +1,23 @@
+type <%= props.name %>Props = {
+  k: string
+}
+
+export default function <%= props.name %>({k}: <%= props.name %>Props) {
+  return (
+    <>
+      {k}
+    </>
+  )
+}
+<% if (props.hasSchema) { %>
+<%= props.name %>.schema = {
+  title: "<%= props.name %>",
+  type: "object",
+  properties: {
+    k: {
+      title: "K",
+      type: "string"
+    }
+  }
+}
+<% } %>

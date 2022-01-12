@@ -1,0 +1,23 @@
+import { createContext, ReactNode, useContext, useState } from "react"
+
+type <%= props.name %>ContextData = {
+  example: string
+}
+
+type <%= props.name %>ProviderProps = {
+  children: ReactNode
+}
+
+const <%= props.name %>Context = createContext<<%= props.name %>ContextData>({} as <%= props.name %>ContextData)
+
+export default function <%= props.name %>Provider({ children }: <%= props.name %>ProviderProps) {
+  const [example, setExample] = useState('')
+
+  return (
+    <<%= props.name %>Context.Provider value={{ example }}>
+        {children}
+    </<%= props.name %>Context.Provider>
+  )
+}
+
+export const use<%= props.name %> = () => useContext(<%= props.name %>Context)

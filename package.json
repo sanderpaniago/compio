@@ -1,6 +1,6 @@
 {
   "name": "compio",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "compio CLI",
   "private": false,
   "types": "build/types/types.d.ts",

@@ -10,13 +10,13 @@ module.exports = {
     const askComponentName = {
       type: 'input',
       name: 'name',
-      message: 'Whats name your component?'
+      message: 'Whats name your context?'
     }
 
     const askComponentInterfaceName = {
       type: 'input',
       name: 'interfaceName',
-      message: 'Whats name your component interface?'
+      message: 'Whats name your provider interface?'
     }
 
     const { name, interfaceName } = await prompt.ask([
@@ -33,6 +33,18 @@ module.exports = {
     if (interfacesFile) {
       interfaces = JSON.parse(interfacesFile)
     }
+
+    const { around }: { around: string[] } = await prompt.ask([
+      {
+        type: 'multiselect',
+        name: 'around',
+        message: 'Select your interface dependencies context',
+        choices: Object.keys(interfaces).map(item => ({
+          name: item,
+          value: item
+        }))
+      }
+    ])
 
     if (interfaces[interfaceName]) {
       return print.error(
@@ -65,6 +77,13 @@ module.exports = {
       interfaces[interfaceName] = {
         component: `${name}Provider`
       }
+
+      around.forEach(item => {
+        interfaces[item].around =
+          interfaces[item]?.around?.length > 0
+            ? [...interfaces[item].around, interfaceName]
+            : [interfaceName]
+      })
 
       filesystem.write(path.join('store', 'interfaces.json'), interfaces)
     }

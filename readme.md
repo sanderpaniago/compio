@@ -10,6 +10,7 @@ O Compio tem como finalidade facilitar a criação de novos component custom par
 a intalação deve ser efetuada na pasta principal do projeto e não dentro da pasta react! </blockquote>
 
 ```bash
+
   yarn add compio
 ```
 
@@ -38,16 +39,16 @@ A cli foi criada pra suportar a seguinte arquitetura de pastas
 yarn compio create:component
 ```
 
-será feito algumas perguntas para a configuração do componente como:
+serão feitas algumas perguntas para a configuração do componente como:
 
 - nome do component
 - nome da interface_id
-- se o componente tera um schema para o site editor
+- se o componente terá um schema para o site editor
 - tipo da composição do componente
   - blocks: caso deseja utilizar o `ExtensionPoint` para chamar outros componentes. <a href="https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-slots" target="_blank">Veja mais sobre</a>
-  - children: caso deseja que o seu component receba filhos.
+  - children: caso deseja que o seu componente receba filhos.
 - em qual camada seu componente sera renderizado: `server`, `client` ou `lazy`
-- Caso selecione a opção de `blocks` ira aparecer uma lista dos componentes já resgistrados dentro do `interfaces.json` para que já possa informar quais componetes poderão ser chamados pelo `ExtensionPoint`
+- Caso selecione a opção de `blocks` ira aparecer uma lista dos componentes já resgistrados dentro do `interfaces.json` para que já possa informar quais poderão ser chamados pelo `ExtensionPoint`
 
 ### Criar um context
 
@@ -55,7 +56,7 @@ será feito algumas perguntas para a configuração do componente como:
 yarn compio create:context
 ```
 
-será feito algumas perguntas para a configuração do contex como:
+serão feitas algumas perguntas para a configuração do context como:
 
 - nome do context
 - nome do interface_id do provider
@@ -67,7 +68,7 @@ será feito algumas perguntas para a configuração do contex como:
 
 ## 👨🏻‍💻 Author:
 
-- **Sander Paniago** - [LinkedIn](https://www.linkedin.com/in/sander-paniago/) - [instagram](https://www.instagram.com/sander_paniago/)
+- _Sander Paniago_ - [LinkedIn](https://www.linkedin.com/in/sander-paniago/) - [instagram](https://www.instagram.com/sander_paniago/)
 
 ## 🗝 licenças
 

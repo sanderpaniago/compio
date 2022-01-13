@@ -3,6 +3,14 @@
   "version": "0.0.3",
   "description": "compio CLI",
   "private": false,
+  "author": {
+    "name": "Sander Paniago",
+    "email": "sanderppaniago@gmail.com"
+  },
+  "keywords": [
+    "vtex.io",
+    "cli"
+  ],
   "types": "build/types/types.d.ts",
   "bin": {
     "compio": "./bin/compio"

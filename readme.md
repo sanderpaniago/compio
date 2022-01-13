@@ -1,25 +1,22 @@
 # compio CLI
 
-A CLI for compio.
+cli para o auxilo de criação de components custom para vtex.io
 
-## Customizing your CLI
+### Comandos
 
-Check out the documentation at https://github.com/infinitered/gluegun/tree/master/docs.
+criando um component
 
-## Publishing to NPM
-
-To package your CLI up for NPM, do this:
-
-```shell
-$ npm login
-$ npm whoami
-$ npm lint
-$ npm test
-(if typescript, run `npm run build` here)
-$ npm publish
+```bash
+yarn compio create:component
 ```
 
-# License
+será feito algumas perguntas para a configuração do compoente como:
 
-MIT - see LICENSE
-
+- nome do component
+- nome da interface_id
+- se o componente tera um schema para o site editor
+- tipo da composição do componente
+  _ blocks: caso deseja utilizar o `ExtensionPointer` para chamar outros componentes dentro do seu.
+  _ children: caso deseja que o seu component receba filhos.
+- em qual camada que seu componente sera renderizado: server, client ou lazy
+- Caso selecione a opção de `blocks` ira aparecer uma lista dos componentes já resgistrados dentro do interfaces.json para que já possa informar quais componetes poderão ser chamados pelo `ExtensionPointer`

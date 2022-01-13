@@ -2,7 +2,7 @@
   "name": "compio",
   "version": "0.0.1",
   "description": "compio CLI",
-  "private": true,
+  "private": false,
   "types": "build/types/types.d.ts",
   "bin": {
     "compio": "./bin/compio"

@@ -2,36 +2,37 @@
 
 ## 💻 Projeto
 
-O compio tem como finalidade facilitar a criação de novos component custom para o <a href="https://developers.vtex.com/vtex-developer-docs/docs/welcome" target="_blank">Vtex.io</a>
+O Compio tem como finalidade facilitar a criação de novos component custom para o <a href="https://developers.vtex.com/vtex-developer-docs/docs/welcome" target="_blank">Vtex.io</a>
 
 ## 🔧 Instalação
 
 <blockquote style="background: #ffff0011; margin-bottom: 1rem; padding: 1rem;"> ⚠️ Cuidado
-a intalação deve ser efetuada na pasta principal do projeto e não deve ser intalada dentro da pasta react! </blockquote>
+a intalação deve ser efetuada na pasta principal do projeto e não dentro da pasta react! </blockquote>
 
 ```bash
   yarn add compio
 ```
 
-foi utilizada a seguinte arquitetura de projeto para essa cli
+A cli foi criada pra suportar a seguinte arquitetura de pastas
 
 ```
   ├── ...
-  ├── react
+  ├── react           # pasta builder React
   │   ├── components
   │   ├── context
   │   └── ...
   │
-  ├── store
+  ├── store           # pasta builder Store
   │   ├── ...
   │   └── interfaces.json
   │
+  ├── manifest.json
   └── ...
 ```
 
 ## 📄 Comandos
 
-### criar um component
+### Criar um component
 
 ```bash
 yarn compio create:component
@@ -43,12 +44,12 @@ será feito algumas perguntas para a configuração do componente como:
 - nome da interface_id
 - se o componente tera um schema para o site editor
 - tipo da composição do componente
-  - blocks: caso deseja utilizar o `ExtensionPoint` para chamar outros componentes dentro do seu. <a href="https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-slots" target="_blank">Veja mais sobre</a>
+  - blocks: caso deseja utilizar o `ExtensionPoint` para chamar outros componentes. <a href="https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-slots" target="_blank">Veja mais sobre</a>
   - children: caso deseja que o seu component receba filhos.
-- em qual camada que seu componente sera renderizado: `server`, `client` ou `lazy`
+- em qual camada seu componente sera renderizado: `server`, `client` ou `lazy`
 - Caso selecione a opção de `blocks` ira aparecer uma lista dos componentes já resgistrados dentro do `interfaces.json` para que já possa informar quais componetes poderão ser chamados pelo `ExtensionPoint`
 
-criar um context
+### Criar um context
 
 ```bash
 yarn compio create:context
@@ -60,7 +61,7 @@ será feito algumas perguntas para a configuração do contex como:
 - nome do interface_id do provider
 - listagem dos componentes já registrados no arquivo `interfaces.json` para que possa selecionar os componentes em que o contexto ficara disponivel
 
-## 📖 documentação utilizada durante a documentação
+## 📖 documentação utilizada durante o desenvolvimento
 
 - <a href="https://github.com/vtex-apps/store/blob/40d1564d1ebafae9dd51a319f3db58f1b7fbfa66/BLOCKS.md" target="_blank">Estrutura dos arquivos interfaces, blocks e routes</a>
 

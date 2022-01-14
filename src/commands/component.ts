@@ -1,6 +1,6 @@
 import { GluegunToolbox } from 'gluegun'
 import { configInterfacesComponent } from '../modules/interfaces'
-import { questions } from '../modules/questions'
+import { questionsComponent } from '../modules/questions/questionsComponent'
 
 module.exports = {
   name: 'create:component',
@@ -9,15 +9,15 @@ module.exports = {
     const { filesystem, prompt, template, print } = toolbox
     try {
       const {
+        name,
+        interfaces,
+        interfaceName,
         composition,
         hasInternationalization,
         hasSchema,
-        interfaceName,
-        name,
         render,
-        selectedAlloweds,
-        interfaces
-      } = await questions({
+        selectedAlloweds
+      } = await questionsComponent({
         filesystem,
         prompt
       })

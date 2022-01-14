@@ -1,0 +1,33 @@
+import { defineMessages } from 'react-intl'
+
+type <%= props.name %>Props = {
+  example: string
+}
+
+export default function <%= props.name %>({example}: <%= props.name %>Props) {
+  const exampleTitle = example || <FormattedMessage id="store.<%= props.name %>.exempleTitle" />
+  return (
+    <>
+      <p>{exampleTitle}</p>
+    </>
+  )
+}
+<% if (props.hasSchema) { %>
+const messages = defineMessages({
+  exampleTitleInput: {
+    defaultMessage: '',
+    id: 'admin.editor.<%= props.name %>.exampleInput',
+  },
+})
+
+<%= props.name %>.schema = {
+  title: "<%= props.name %>",
+  type: "object",
+  properties: {
+    example: {
+      title: messages.exampleTitleInput,
+      type: "string"
+    }
+  }
+}
+<% } %>

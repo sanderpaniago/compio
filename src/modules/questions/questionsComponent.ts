@@ -1,6 +1,6 @@
 import { GluegunFilesystem, GluegunPrompt } from 'gluegun'
 import { join } from 'path'
-import { InterfaceComponent } from '../types'
+import { InterfaceComponent } from '../../types'
 
 type QuestionsProps = {
   filesystem: GluegunFilesystem
@@ -16,15 +16,17 @@ type ResponseQuestion = {
   render?: 'server' | 'lazy' | 'client' | string | undefined
   selectedAlloweds?: string[] | undefined
   interfaces?: InterfaceComponent | undefined
-  error?: () => void
 }
 
-type QuestionFunction = ({
+type QuestionComponentFunction = ({
   filesystem,
   prompt
 }: QuestionsProps) => Promise<ResponseQuestion>
 
-export const questions: QuestionFunction = async ({ filesystem, prompt }) => {
+export const questionsComponent: QuestionComponentFunction = async ({
+  filesystem,
+  prompt
+}) => {
   const askComponentName = {
     type: 'input',
     name: 'name',
@@ -41,6 +43,18 @@ export const questions: QuestionFunction = async ({ filesystem, prompt }) => {
     askComponentName,
     askComponentInterfaceName
   ])
+
+  if (!name) {
+    throw {
+      message: 'Please, enter the name of your component'
+    }
+  }
+
+  if (!interfaceName) {
+    throw {
+      message: 'Please, enter the name of your interface-component'
+    }
+  }
 
   const verifyHasComponent = await filesystem.existsAsync(
     join('react', `${name}.ts`)

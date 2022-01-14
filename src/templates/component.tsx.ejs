@@ -1,11 +1,11 @@
 type <%= props.name %>Props = {
-  k: string
+  example: string
 }
 
-export default function <%= props.name %>({k}: <%= props.name %>Props) {
+export default function <%= props.name %>({example}: <%= props.name %>Props) {
   return (
     <>
-      {k}
+      {example}
     </>
   )
 }
@@ -14,8 +14,8 @@ export default function <%= props.name %>({k}: <%= props.name %>Props) {
   title: "<%= props.name %>",
   type: "object",
   properties: {
-    k: {
-      title: "K",
+    example: {
+      title: "example title",
       type: "string"
     }
   }

@@ -7,6 +7,12 @@
     "name": "Sander Paniago",
     "email": "sanderppaniago@gmail.com"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "url": "https://github.com/sanderpaniago/compio"
+  },
   "keywords": [
     "vtex.io",
     "cli"

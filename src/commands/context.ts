@@ -1,91 +1,49 @@
 import { GluegunToolbox } from 'gluegun'
 import * as path from 'path'
+import { questionsContext } from '../modules/questions/questionsContext'
 
 module.exports = {
   name: 'create:context',
   description: 'Create new custom component vtex.io inside react/components',
   run: async (toolbox: GluegunToolbox) => {
     const { filesystem, prompt, template, print } = toolbox
+    try {
+      const {
+        around,
+        interfaceName,
+        interfaces,
+        name
+      } = await questionsContext({ filesystem, prompt })
 
-    const askComponentName = {
-      type: 'input',
-      name: 'name',
-      message: 'Whats name your context?'
-    }
+      if (name) {
+        await template.generate({
+          template: 'context.tsx.ejs',
+          target: `react/context/${name}/index.tsx`,
+          props: { name }
+        })
 
-    const askComponentInterfaceName = {
-      type: 'input',
-      name: 'interfaceName',
-      message: 'Whats name your provider interface?'
-    }
+        await template.generate({
+          template: 'contextExport.ts.ejs',
+          target: `react/${name}Provider.ts`,
+          props: { name }
+        })
 
-    const { name, interfaceName } = await prompt.ask([
-      askComponentName,
-      askComponentInterfaceName
-    ])
+        interfaces[interfaceName] = {
+          component: `${name}Provider`
+        }
 
-    const interfacesFile = await filesystem.readAsync(
-      path.join('store', 'interfaces.json')
-    )
+        around.forEach(item => {
+          interfaces[item].around =
+            interfaces[item]?.around?.length > 0
+              ? [...interfaces[item].around, interfaceName]
+              : [interfaceName]
+        })
 
-    let interfaces = {}
-
-    if (interfacesFile) {
-      interfaces = JSON.parse(interfacesFile)
-    }
-
-    const { around }: { around: string[] } = await prompt.ask([
-      {
-        type: 'multiselect',
-        name: 'around',
-        message: 'Select your interface dependencies context',
-        choices: Object.keys(interfaces).map(item => ({
-          name: item,
-          value: item
-        }))
+        filesystem.write(path.join('store', 'interfaces.json'), interfaces)
+        print.success('Your component created with success')
       }
-    ])
-
-    if (interfaces[interfaceName]) {
-      return print.error(
-        `It's have interface name ${interfaceName}, try again!`
-      )
-    }
-
-    if (name) {
-      const verifyHasComponent = await filesystem.existsAsync(
-        path.join('react', `${name}Provider.ts`)
-      )
-      if (verifyHasComponent) {
-        return print.error(
-          `It's have component ${name} already exists, try again!`
-        )
-      }
-
-      await template.generate({
-        template: 'context.tsx.ejs',
-        target: `react/context/${name}/index.tsx`,
-        props: { name }
-      })
-
-      await template.generate({
-        template: 'contextExport.ts.ejs',
-        target: `react/${name}Provider.ts`,
-        props: { name }
-      })
-
-      interfaces[interfaceName] = {
-        component: `${name}Provider`
-      }
-
-      around.forEach(item => {
-        interfaces[item].around =
-          interfaces[item]?.around?.length > 0
-            ? [...interfaces[item].around, interfaceName]
-            : [interfaceName]
-      })
-
-      filesystem.write(path.join('store', 'interfaces.json'), interfaces)
+    } catch (error) {
+      print.error(error.message)
     }
   }
 }

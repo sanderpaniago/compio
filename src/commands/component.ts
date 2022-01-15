@@ -1,28 +1,39 @@
 import { GluegunToolbox } from 'gluegun'
+import { join } from 'path'
 import { configInterfacesComponent } from '../modules/interfaces'
-import { questions } from '../modules/questions'
+import { createdConfigInternationalization } from '../modules/internationalization'
+import { questionsComponent } from '../modules/questions/questionsComponent'
 
 module.exports = {
   name: 'create:component',
   description: 'Create new custom component vtex.io inside react/components',
   run: async (toolbox: GluegunToolbox) => {
-    const { filesystem, prompt, template, print } = toolbox
+    const { filesystem, prompt, template, print, packageManager } = toolbox
     try {
       const {
+        name,
+        interfaces,
+        interfaceName,
         composition,
         hasInternationalization,
         hasSchema,
-        interfaceName,
-        name,
         render,
-        selectedAlloweds,
-        interfaces
-      } = await questions({
+        selectedAlloweds
+      } = await questionsComponent({
         filesystem,
         prompt
       })
 
       if (name) {
+        if (hasInternationalization) {
+          await createdConfigInternationalization({
+            componentName: name,
+            filesystem,
+            print,
+            prompt,
+            packageManager
+          })
+        }
         await template.generate({
           template: hasInternationalization
             ? 'componentInternationalization.tsx.ejs'
@@ -37,7 +48,7 @@ module.exports = {
           props: { name }
         })
 
-        configInterfacesComponent({
+        await configInterfacesComponent({
           componentName: name,
           composition,
           filesystem,
@@ -46,9 +57,27 @@ module.exports = {
           render,
           selectedAlloweds
         })
+        print.success('Your component created with success')
       }
     } catch (error) {
       print.error(error.message)
+
+      if (error.locale !== 'component') {
+        const files = await filesystem.findAsync('react', {
+          files: true,
+          directories: true,
+          matching: `*${error.componentName}*`
+        })
+
+        if (files) {
+          await filesystem.removeAsync(
+            join('react', `${error.componentName}.ts`)
+          )
+          await filesystem.removeAsync(
+            join('react', 'components', `${error.componentName}`)
+          )
+        }
+      }
     }
   }
 }

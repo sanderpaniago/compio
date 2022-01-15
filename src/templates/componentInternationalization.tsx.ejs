@@ -1,11 +1,11 @@
-import { defineMessages } from 'react-intl'
+import {<% if (props.hasSchema) { %> defineMessages,<% } %> FormattedMessage  } from 'react-intl'
 
 type <%= props.name %>Props = {
   example: string
 }
 
 export default function <%= props.name %>({example}: <%= props.name %>Props) {
-  const exampleTitle = example || <FormattedMessage id="store.<%= props.name %>.exempleTitle" />
+  const exampleTitle = example || <FormattedMessage id="store/<%= props.name %>.exempleTitle" />
   return (
     <>
       <p>{exampleTitle}</p>
@@ -16,7 +16,7 @@ export default function <%= props.name %>({example}: <%= props.name %>Props) {
 const messages = defineMessages({
   exampleTitleInput: {
     defaultMessage: '',
-    id: 'admin.editor.<%= props.name %>.exampleInput',
+    id: 'admin/editor.<%= props.name %>.exampleInput',
   },
 })
 

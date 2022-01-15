@@ -62,13 +62,17 @@ export const questionsComponent: QuestionComponentFunction = async ({
 
   if (verifyHasComponent) {
     throw {
-      message: `It's have component ${name} already exists, try again!`
+      message: `It's have component ${name} already exists, try again!`,
+      locale: 'component',
+      componentName: name
     }
   }
 
   if (!interfaceName) {
     throw {
-      message: 'Not found interface name!, try again!'
+      message: 'Not found interface name!, try again!',
+      locale: 'component',
+      componentName: name
     }
   }
 
@@ -84,7 +88,9 @@ export const questionsComponent: QuestionComponentFunction = async ({
 
   if (interfaces[interfaceName]) {
     throw {
-      message: `It's have interface name ${interfaceName}, try again!`
+      message: `It's have interface name ${interfaceName}, try again!`,
+      locale: 'interface',
+      componentName: name
     }
   }
 

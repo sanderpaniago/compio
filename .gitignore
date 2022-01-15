@@ -6,5 +6,9 @@ coverage
 dist
 build
 .vscode
+
+# FOlder and File for testing
 store/
 react/
+manifest.json
+messages/

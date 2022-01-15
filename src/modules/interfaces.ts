@@ -35,5 +35,5 @@ export async function configInterfacesComponent({
     interfaces[interfaceName].allowed = selectedAlloweds
   }
 
-  filesystem.write(join('store', 'interfaces.json'), interfaces)
+  await filesystem.writeAsync(join('store', 'interfaces.json'), interfaces)
 }

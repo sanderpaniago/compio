@@ -40,6 +40,7 @@ module.exports = {
         })
 
         filesystem.write(path.join('store', 'interfaces.json'), interfaces)
+        print.success('Your component created with success')
       }
     } catch (error) {
       print.error(error.message)
